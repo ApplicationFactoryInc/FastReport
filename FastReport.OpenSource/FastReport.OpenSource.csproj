@@ -5,12 +5,10 @@
     </PropertyGroup>
   
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <TargetFrameworks>$(TargetFrameworks);net40</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(VisualStudioVersion)' >= '16'">
-    <TargetFrameworks>$(TargetFrameworks);netstandard2.1</TargetFrameworks>
-  </PropertyGroup>
+
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -52,7 +50,7 @@ Various report objects will allow your report to look exactly how you want it to
   </PropertyGroup>
 
   <!--readonly struct's feature-->
-  <PropertyGroup Condition="'$(MSBuildVersion)' >= '16'">
+  <PropertyGroup Condition="'$(MSBuildVersion)' &gt;= '16'">
     <DefineConstants>$(DefineConstants);READONLY_STRUCTS</DefineConstants>
   </PropertyGroup>
 
@@ -71,10 +69,6 @@ Various report objects will allow your report to look exactly how you want it to
     <PackageReference Include="System.Text.Encoding.CodePages" Version="$(SystemTextEncodingCodePagesVersion)" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FastReport.Compat" Version="$(FRCompatVersion)" />
-  </ItemGroup>
-
   <Import Project="..\FastReport.Base\FastReport.Base.csproj" />
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
@@ -89,8 +83,7 @@ Various report objects will allow your report to look exactly how you want it to
 
 
   <ItemGroup>
-    <EmbeddedResource Include="..\FastReport\Resources\**"
-                      Exclude="..\FastReport\Resources\Ribbon\**;..\FastReport\Resources\MSChart\**;..\FastReport\Resources\Images\**;..\FastReport\Resources\**\*.cur;..\FastReport\Resources\**\*.frx;..\FastReport\Resources\*.png;..\FastReport\Resources\labels.dat;..\FastReport\Resources\Pdf\**;..\FastReport\Resources\SVG\**;..\FastReport\Resources\OoXML\**;">
+    <EmbeddedResource Include="..\FastReport\Resources\**" Exclude="..\FastReport\Resources\Ribbon\**;..\FastReport\Resources\MSChart\**;..\FastReport\Resources\Images\**;..\FastReport\Resources\**\*.cur;..\FastReport\Resources\**\*.frx;..\FastReport\Resources\*.png;..\FastReport\Resources\labels.dat;..\FastReport\Resources\Pdf\**;..\FastReport\Resources\SVG\**;..\FastReport\Resources\OoXML\**;">
       <Link>Resources\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </EmbeddedResource>
   </ItemGroup>
@@ -110,6 +103,11 @@ Various report objects will allow your report to look exactly how you want it to
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FastReport.Compat\src\FastReport.Compat\FastReport.Compat.csproj" />
   </ItemGroup>
 
 </Project>
